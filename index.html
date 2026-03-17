@@ -21,7 +21,7 @@
         #productSection h1{
             text-align: center;
             font-size: 30px;
-            padding: 20px 0px;
+            margin-bottom: 30px;
         }
         .main{
             width: 1320px;
@@ -36,7 +36,7 @@
         }
         .modalElement{
             display: none;    
-            pointer-events: none;
+            pointer-events: none; 
             position: fixed;
             width: 100%;
             height: 100%;
@@ -46,7 +46,7 @@
             pointer-events: auto;
            width: 800px;
            position: fixed;
-           height: 500px;
+           height: 400px;
            left: 50%;
            top: 50%;
            background: white;
@@ -54,6 +54,8 @@
         }
         .whiteModal img{
             width: 100%;
+            height: 100%;
+            display: block;
         }
         .whiteModal span {
             right: 0px;
@@ -61,6 +63,9 @@
             cursor: pointer;
             color: white;
             position: absolute;
+        }
+        .showModal{
+            display: block;
         }
     </style>
 </head>
@@ -71,6 +76,7 @@
             <img src="" alt="">
         </div>
     </div>
+
     <section id="productSection">
         <h1>Products</h1>
     <div class="main">
@@ -109,15 +115,29 @@
     </section>
     <script>
         let modalElementDiv=document.querySelector(".modalElement")
+        let modalImg =document.querySelector(".whiteModal img") //step1.iske through
+        let closeBtn = document.querySelector(".whiteModal span")
     //target bta konsi image target hui h. white are a pe click karne per div or image pe tag 
         let mainElement=document.querySelector(".main")
         mainElement.addEventListener("click",(e)=>{
-            if(e.target.tagName=="IMG"){
-                let clickImagePath=e.target.src
-                
-                modalElementDiv.style.display="block"
+            if(e.target.tagName == "IMG"){
+                let clickPath = e.target.src; //✅ clickPath = clicked image ka source
+                modalImg.src = clickPath; //step2:- image target ho rahi h.
+                modalElementDiv.classList.add('showModal')
+                // modalElementDiv.style.display="block"  use mat karo nhi to modal close nhi hoga
             };
         })
+        closeBtn.addEventListener("click",()=>{
+            modalElementDiv.classList.remove("showModal")           
+            modalImg.src="";
+        })
+        //ye isliye use kar rahe h taki bahar click hone pe close ho jaye. 
+        let whiteModalElement=document.querySelector(".whiteModel")
+        whiteModalElement.addEventListener("click",(e)=>{
+            //whiteModel ka parent ko impact nhi kar reha.
+            e.stopPropagation()
+        })
+        //click
     </script>
 </body>
 </html>
